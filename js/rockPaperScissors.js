@@ -1,3 +1,9 @@
+var btn = document.querySelectorAll('.btn');
+
+btn.forEach(e => e.addEventListener('click', function() {
+  game(e.id, computerPlay());
+}));
+
 userScore = 0
 botScore = 0
 
@@ -58,12 +64,18 @@ let game = function(playerSelection, computerSelection) {
   let round = playRound()
   incrementScore(round)
 
-  return `Your Score: ${userScore} - Bot Score: ${botScore} \n
-  ${generateResponse(round)}`;
+  const usersScore = document.getElementById('userScore').childNodes[3];
+  usersScore.textContent = userScore;
+
+  const botsScore = document.getElementById('botScore').lastElementChild;
+  botsScore.textContent = botScore;
+
+  const usersThrow = document.getElementById('user-throw').lastElementChild;
+  usersThrow.textContent = idToString(playerSelection);
+
+  const botsThrow = document.getElementById('bots-throw').lastElementChild;
+  botsThrow.textContent = idToString(computerSelection);
+
+  const outcome = document.getElementById('outcome').firstElementChild;
+  outcome.textContent = generateResponse(round);
 };
-
-let userSelection = prompt("Choose '1' for 'Rock', '2' for 'Paper', and '3' for 'Scissors'")
-let botSelection = computerPlay()
-
-console.log("\n")
-console.log(game(userSelection, botSelection));
